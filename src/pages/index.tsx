@@ -1,31 +1,16 @@
-import { Button, Space, Table, Card, Image, Avatar, Spin } from "antd";
+import { Space, Spin } from "antd";
 import { useEffect, useState } from "react";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import productService from "@/services/product.service";
+import MainTitle from "@/components/MainTitle";
+import Product from "@/models/product";
+import ProductCard from "@/components/ProductCard";
+import useProducts from "@/hooks/useProducts";
 
 export default function Home() {
-  const [products, setproducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const getProducts = async () => {
-      setLoading(true);
-      const response = await fetch("https://api.escuelajs.co/api/v1/products");
-      const data = await response.json();
-      setLoading(false);
-      setproducts(data);
-    };
-    getProducts();
-  }, []);
-
+  const { loading, products } = useProducts();
   return (
     <>
-      <div className="mainTitle">
-        <h1>Products</h1>
-      </div>
-
+      <MainTitle title="Products" />
       <Space
         size={[25, 16]}
         wrap
@@ -37,17 +22,8 @@ export default function Home() {
         }}
       >
         {loading && <Spin />}
-        {products.map((product: any) => (
-          <Card
-            style={{ width: 200 }}
-            title={product.title}
-            cover={<Image alt="example" src={product.images[0]} />}
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          ></Card>
+        {products.map((product: Product, index: number) => (
+          <ProductCard key={index} product={product} />
         ))}
       </Space>
     </>
