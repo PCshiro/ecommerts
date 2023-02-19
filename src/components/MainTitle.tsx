@@ -2,7 +2,8 @@ import React from "react";
 type MainTitleProps = {
   title: string;
 };
-const MainTitle = ({ title }: MainTitleProps) => {
+const MainTitle = (props: MainTitleProps) => {
+  const {title} = props;
   return (
     <div className="mainTitle">
       <h1>{title}</h1>

@@ -30,13 +30,9 @@ const FormCreateProduct = ({
     <Form
       layout="horizontal"
       onFinish={async (values) => {
-        createProduct({
-          title: "Gaaaaaa",
-          price: 10,
-          description: "A description",
-          categoryId: 1,
-          images: ["https://placeimg.com/640/480/any"],
-        });
+        let newValues = values;
+        newValues.images = ["https://placeimg.com/640/480/any"];
+        createProduct(newValues);
       }}
       style={{ maxWidth: 600, marginTop: "1rem" }}
     >
