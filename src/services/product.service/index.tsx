@@ -17,6 +17,20 @@ class ProductService {
       message.error("Error while creating product");
     }
   }
+  async updateProduct(values: any,id : number): Promise<Product | undefined> {
+    try {
+      return await api(HttpMethod.PUT, `${ProductService._basePath}/${id}`, values);
+    } catch (error) {
+      message.error("Error while creating product");
+    }
+  }
+  async deleteProduct(id : number): Promise<Product | undefined> {
+    try {
+      return await api(HttpMethod.DELETE, `${ProductService._basePath}/${id}`);
+    } catch (error) {
+      message.error("Error while creating product");
+    }
+  }
 }
 
 export default new ProductService();
